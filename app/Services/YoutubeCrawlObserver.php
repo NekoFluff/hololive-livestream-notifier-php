@@ -23,6 +23,8 @@ class YoutubeCrawlObserver extends CrawlObserver
 
         Log::info(htmlspecialchars_decode((string) $response->getBody()));
 
+        dd((string) $response->getBody());
+
         $title = $crawler->filter('meta[name="title"]')->attr('content', null);
         $description = $crawler->filter('meta[name="description"]')->attr('content', null);
         preg_match('/"scheduledStartTime":"(\d+)"/', $html, $matches);
