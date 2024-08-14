@@ -17,15 +17,15 @@ class YoutubeCrawlObserver extends CrawlObserver
         ?string $linkText = null,
     ): void {
 
-        $html = $response->getBody();
+        $html = (string) $response->getBody();
 
-        $crawler = new Crawler(htmlspecialchars_decode((string) $response->getBody()));
+        $crawler = new Crawler($html);
 
-        Log::info(htmlspecialchars_decode((string) $response->getBody()));
+        Log::info(htmlspecialchars_decode($html));
 
-        Log::info((string) $response->getBody());
+        Log::info($html);
 
-        dd((string) $response->getBody());
+        // dd($html);
 
         $title = $crawler->filter('meta[name="title"]')->attr('content', null);
         $description = $crawler->filter('meta[name="description"]')->attr('content', null);
