@@ -21,10 +21,10 @@ class YoutubeCrawlObserver extends CrawlObserver
 
         $crawler = new Crawler((string) $response->getBody());
 
-        dd($url, (string) $response->getBody());
+        // dd((string) $response->getBody());
 
-        $title = $crawler->filter('meta[property="og:title"]')->attr('content', null);
-        $description = $crawler->filter('meta[property="og:description"]')->attr('content', null);
+        $title = $crawler->filter('meta[name="title"]')->attr('content', null);
+        $description = $crawler->filter('meta[name="description"]')->attr('content', null);
         preg_match('/"scheduledStartTime":"(\d+)"/', $html, $matches);
         $livestream_start_dt = $matches[1] ?? null;
 
