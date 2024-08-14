@@ -14,15 +14,13 @@ class YoutubeController extends Controller
     public function challenge(Request $request)
     {
         Log::info("Challenge request received", [
-            'mode' => $request->input('mode'),
-            'topic' => $request->input('topic'),
-            'lease_seconds' => $request->input('lease_seconds'),
-            'challenge' => $request->input('challenge'),
-            'request' => $request->all(),
-            'request2' => $request,
+            'hub_mode' => $request->input('hub_mode'),
+            'hub_topic' => $request->input('hub_topic'),
+            'hub_lease_seconds' => $request->input('hub_lease_seconds'),
+            'hub_challenge' => $request->input('hub_challenge'),
         ]);
 
-        return response($request->input('challenge'), 200);
+        return response($request->input('hub_challenge'), 200);
     }
 
     public function callback()
