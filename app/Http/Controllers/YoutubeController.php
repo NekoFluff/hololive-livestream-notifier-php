@@ -18,6 +18,8 @@ class YoutubeController extends Controller
             'topic' => $request->input('topic'),
             'lease_seconds' => $request->input('lease_seconds'),
             'challenge' => $request->input('challenge'),
+            'request' => $request->all(),
+            'request2' => $request,
         ]);
 
         return response($request->input('challenge'), 200);
