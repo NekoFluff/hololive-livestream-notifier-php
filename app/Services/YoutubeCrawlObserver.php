@@ -19,9 +19,9 @@ class YoutubeCrawlObserver extends CrawlObserver
 
         $html = $response->getBody();
 
-        $crawler = new Crawler((string) $response->getBody());
+        $crawler = new Crawler(htmlspecialchars_decode((string) $response->getBody()));
 
-        // dd((string) $response->getBody());
+        dd(htmlspecialchars_decode((string) $response->getBody()));
 
         $title = $crawler->filter('meta[name="title"]')->attr('content', null);
         $description = $crawler->filter('meta[name="description"]')->attr('content', null);
