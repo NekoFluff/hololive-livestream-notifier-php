@@ -19,6 +19,8 @@ class YoutubeCrawlObserver extends CrawlObserver
 
         $html = (string) $response->getBody();
 
+        dd($html);
+
         $crawler = new Crawler($html);
 
         Log::info(htmlspecialchars_decode($html));
