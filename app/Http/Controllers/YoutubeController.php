@@ -47,7 +47,7 @@ class YoutubeController extends Controller
         ], [
             'title' => $data['title'],
             'author' => $data['channel_title'],
-            'livestream_start_dt' => DateTime::createFromTimestamp($data['livestream_start_dt']),
+            'livestream_start_dt' => DateTime::createFromTimeString($data['livestream_start_dt']),
         ]);
 
         Log::info('Livestream data saved', [
