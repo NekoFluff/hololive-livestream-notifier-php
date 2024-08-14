@@ -39,4 +39,7 @@ return [
         'callback_url' => env('PUBSUB_CALLBACK_URL'),
     ],
 
+    'youtube' => [
+        'api_key' => env('YOUTUBE_API_KEY'),
+    ],
 ];

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Livestream;
-use App\Services\YoutubeScraper;
+use App\Services\VideoService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon as DateTime;
+use Illuminate\Support\Facades\App;
 
 class YoutubeController extends Controller
 {
@@ -26,11 +27,12 @@ class YoutubeController extends Controller
     {
         $xml = simplexml_load_string(request()->getContent());
 
-        // TODO: Send message to developer on discord
-
         $livestreamUrl = (string) $xml->entry->link->attributes()->href;
+        $videoId = (string) $xml->entry->id;
+        $videoId = str_replace('yt:video:', '', $videoId);
 
-        $data = YoutubeScraper::getVideoMetadata($livestreamUrl);
+        $videoService = new VideoService(App::make(\Google\Service\YouTube::class));
+        $data = $videoService->getVideoInfo($videoId);
 
         if (!isset($data['livestream_start_dt'])) {
             Log::warning('Livestream start date not found', [
@@ -40,17 +42,17 @@ class YoutubeController extends Controller
             return response()->noContent();
         }
 
-        Livestream::updateOrCreate([
+        $livesteam = Livestream::updateOrCreate([
             'url' => $livestreamUrl,
         ], [
-            'title' => (string) $xml->entry->title,
-            'author' => (string) $xml->entry->author->name,
+            'title' => $data['title'],
+            'author' => $data['channel_title'],
             'livestream_start_dt' => DateTime::createFromTimestamp($data['livestream_start_dt']),
         ]);
 
         Log::info('Livestream data saved', [
             'url' => $livestreamUrl,
-            'data' => $data,
+            'livestream' => $livesteam->toArray(),
         ]);
 
         // TODO: Send message to channel on discord
