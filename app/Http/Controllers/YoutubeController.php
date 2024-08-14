@@ -37,7 +37,7 @@ class YoutubeController extends Controller
                 'url' => $livestreamUrl,
                 'data' => $data,
             ]);
-            return response();
+            return response()->noContent();
         }
 
         Livestream::updateOrCreate([
@@ -57,6 +57,6 @@ class YoutubeController extends Controller
 
         // TODO: Setup discord livestream notification
 
-        return response("", 204);
+        return response()->noContent();
     }
 }

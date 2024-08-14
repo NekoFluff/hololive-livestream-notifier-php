@@ -12,7 +12,8 @@ class YoutubeScraper
     {
         $browser = new HttpBrowser(HttpClient::create());
 
-        $crawler = $browser->request('GET', $url);
+        $browser->request('GET', $url);
+        $crawler = $browser->getCrawler();
 
         $title = $crawler->filter('meta[name="title"]')->attr('content', null);
         $description = $crawler->filter('meta[name="description"]')->attr('content', null);
