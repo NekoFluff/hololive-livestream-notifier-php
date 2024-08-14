@@ -21,6 +21,8 @@ class YoutubeCrawlObserver extends CrawlObserver
 
         $crawler = new Crawler(htmlspecialchars_decode((string) $response->getBody()));
 
+        Log::info(htmlspecialchars_decode((string) $response->getBody()));
+
         $title = $crawler->filter('meta[name="title"]')->attr('content', null);
         $description = $crawler->filter('meta[name="description"]')->attr('content', null);
         preg_match('/"scheduledStartTime":"(\d+)"/', $html, $matches);
