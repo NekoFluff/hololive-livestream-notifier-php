@@ -57,6 +57,6 @@ class YoutubeController extends Controller
 
         // TODO: Setup discord livestream notification
 
-        return response()->noContent();
+        return response("", 204);
     }
 }
