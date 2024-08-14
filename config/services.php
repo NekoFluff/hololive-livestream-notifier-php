@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'pubsub' => [
+        'callback_url' => env('PUBSUB_CALLBACK_URL'),
+    ],
+
 ];
